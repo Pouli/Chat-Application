@@ -1,0 +1,11 @@
+{
+  "name": "Chat",
+  "author": "Paul",
+  "dependencies" : {
+    "express": "latest",
+    "socket.io": "latest",
+    "body-parser": "latest",
+    "method-override": "latest",
+    "morgan": "latest"
+  }
+}
