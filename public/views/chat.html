@@ -1,0 +1,15 @@
+<form name="textForm" ng-submit="sendMessage(textForm.$valid)">
+  <div class="form-group">
+      <label hidden>Text</label>
+      <textarea type="text" name="message" class="form-control" ng-model="message" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+<div class="container">
+  <h1>Messages</h1>
+  <ul class="chat">
+    <li class="message" ng-repeat="message in messages">
+      {{message.user}}: {{message.text}}
+    </li>
+  </ul>
+</div>
