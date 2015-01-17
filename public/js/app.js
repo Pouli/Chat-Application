@@ -3,6 +3,7 @@ angular.module('chat', [
   'appRoutes',
   'MainCtrl',
   'LoginCtrl',
+  'HomeCtrl',
   'ChatCtrl',
   'socket',
   'btford.socket-io'

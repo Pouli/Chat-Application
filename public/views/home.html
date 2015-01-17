@@ -1,0 +1,17 @@
+<div class="zone1">
+  <h1>Connected users</h1>
+  Search: <input type="text" ng-model="query"></input>
+  <ul class="connectedUsers">
+    <li class="connectedUser" ng-repeat="connectedUser in connectedUsers | filter: query" ng-click="selectUser(connectedUser)">
+      {{connectedUser}}
+    </li>
+  </ul>
+</div>
+<div class="zone2">
+  <h1>Selected users</h1>
+  <ul class="selectedUsers">
+    <li class="selectedUser" ng-repeat="selectedUser in selectedUsers" ng-click="unselectUser(selectedUser)">
+      {{selectedUser}}
+    </li>
+  </ul>
+</div>

@@ -5,7 +5,6 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', 'socket',
 
     socket.on('user:connected', function(connectedUsers) {
       $scope.connectedUsers = connectedUsers;
-      console.log($scope.users);
     })
   }
 ]);

@@ -6,7 +6,7 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket
       if(isValid) {
         $scope.user.name = $scope.pseudo;
         socket.emit('user:new', $scope.user.name);
-        $location.path('/chat');
+        $location.path('/home');
       }
     }
   }
