@@ -1,10 +1,11 @@
-angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$rootScope', 'socket', '$location',
-  function($scope, $rootScope, scoket, $location) {
+angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket', '$location',
+  function($scope, socket, $location) {
     $scope.pseudo = '';
 
     $scope.login = function(isValid) {
       if(isValid) {
-        $rootScope.pseudo = $scope.pseudo;
+        $scope.user.name = $scope.pseudo;
+        socket.emit('user:new', $scope.user.name);
         $location.path('/chat');
       }
     }
