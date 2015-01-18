@@ -1,17 +1,26 @@
-<div class="zone1">
+<div class="container">
   <h1>Connected users</h1>
   Search: <input type="text" ng-model="query"></input>
   <ul class="connectedUsers">
     <li class="connectedUser" ng-repeat="connectedUser in connectedUsers | filter: query" ng-click="selectUser(connectedUser)">
-      {{connectedUser}}
+      {{connectedUser.name}}
     </li>
   </ul>
 </div>
-<div class="zone2">
+<div class="container">
   <h1>Selected users</h1>
   <ul class="selectedUsers">
     <li class="selectedUser" ng-repeat="selectedUser in selectedUsers" ng-click="unselectUser(selectedUser)">
-      {{selectedUser}}
+      {{selectedUser.name}}
     </li>
   </ul>
+  <button ng-click="sendInvitation()">Send invitation</button>
+</div>
+<div class="container">
+  <h1>Invitation</h1>
+  <ul class="invitations">
+    <li class="invitation" ng-repeat="invitation in invitations" ng-click="joinChat(invitation.chatroom)">
+      {{invitation.user}} invite you to join is chat : {{invitation.chatroom}}
+    </li>
+  <ul>
 </div>

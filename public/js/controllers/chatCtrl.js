@@ -5,8 +5,8 @@ angular.module('ChatCtrl', []).controller('ChatController', ['$scope', 'socket',
 
     $scope.sendMessage = function(isValid) {
       if(isValid) {
-        socket.emit('message', {user: $scope.user.name, text: $scope.message});
-        $scope.messages.push({user: $scope.user.name, text: $scope.message});
+        socket.emit('message', {user: $scope.user, text: $scope.message});
+        $scope.messages.push({user: $scope.user, text: $scope.message});
       }
     };
 
