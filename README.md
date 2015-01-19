@@ -7,6 +7,7 @@ A simple chat application using Node.js, Angular.js and Socket.io
   - Node.js
   - npm
   - bower
+  - MongoDB
   
 ## NPM
  ```sh
