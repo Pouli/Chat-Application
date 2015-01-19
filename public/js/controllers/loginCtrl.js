@@ -1,5 +1,5 @@
-angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket', '$http', '$location', 'localStorageService',
-  function($scope, socket, $http, $location, localStorageService) {
+angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket', '$location', 'localStorageService',
+  function($scope, socket, $location, localStorageService) {
     $scope.pseudo = '';
 
     $scope.login = function(isValid) {
@@ -9,25 +9,18 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket
         localStorageService.set('invitations', []);
 
         var username = localStorageService.get('currentUserName');
-
-        socket.emit('user:getId');
-        socket.on('user:returnId', function(socketId) {
-          $http.post('/api/connectedUser', {name: username, id: socketId}).
-            success(function(data) {
-              if(data.success) {
-                socket.emit('user:new', {name: username, id: socketId});
-                $location.path('/home');
-              } else {
-                console.log('This username has already been taken');
-                $location.path('/login');
-              }
-            }).
-            error(function(err) {
-              console.log(err);
-              $location.path('/login');
-            });
+        socket.connect();
+        socket.emit('user:new', {name: username});
+        socket.on('user:return', function(data) {
+          if(data.success) {
+            console.log(data.message);
+            $location.path('/home');
+          } else {
+            console.log(data.message);
+            $location.path('/login');
+          }
         });
       }
-    }
+    };
   }
 ]);

@@ -1,21 +1,25 @@
+var mongoose = require('mongoose');
+var ConnectedUser = require('../models/connectedUser');
+
 module.exports = function(io) {
   io.on('connection', function(socket) {
-
     socket.on('disconnect', function() {
-      console.log('Disconnected');
-    })
+      removeUser(mongoose, ConnectedUser, socket.id, function(data) {
+        console.log(data.message);
+        io.sockets.emit('user:connected');
+      });
+    });
 
     socket.on('message', function(message) {
       socket.broadcast.to(message.user.chatroom).emit('message', message);
     });
 
-    socket.on('user:getId', function() {
-      socket.emit('user:returnId', socket.id);
-    });
-
     socket.on('user:new', function(newUser) {
-      socket.emit('user:current', 'OK');
-      io.sockets.emit('user:connected');
+      addUser(mongoose, ConnectedUser, newUser.name, socket.id, function(data) {
+        socket.emit('user:return', data);
+        socket.emit('user:current');
+        io.sockets.emit('user:connected');
+      });
     });
 
     socket.on('invitation:send', function(users) {
@@ -33,4 +37,35 @@ module.exports = function(io) {
       socket.join(chatroom.new);
     });
   },{'sync disconnect on unload': true });
+}
+
+function addUser(mongoose, Model, userName, socketId, callback) {
+  Model.findOne({'name': userName}, function(err, user) {
+    if(err) {
+      return callback({success: false, message: err});
+    }
+    if(user) {
+      return callback({success: false, message: 'This username has already been taken'});
+    } else {
+      var newModel = new Model();
+      newModel.name = userName;
+      newModel.id = socketId;
+
+      newModel.save(function(err) {
+        if(err)
+          return callback({success: false, message: err});
+        return callback({success: true, message: 'User has been added'});
+      });
+    }
+  });
+}
+
+function removeUser(mongoose, Model, socketId, callback) {
+  Model.findOneAndRemove({'id': socketId}, function(err) {
+    if(err) {
+      return callback({success: false, message: err});
+    } else {
+      return callback({success: true, message: 'Disconnected'});
+    }
+  });
 }

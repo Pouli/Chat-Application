@@ -33,7 +33,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'socket',
       removeInvitation(localStorageService, invitation);
       $scope.invitations = localStorageService.get('invitations');
       $location.path('/chat');
-    }
+    };
+
+    $scope.disconnect = function() {
+      console.log('d');
+      localStorageService.remove('currentUserName');
+      localStorageService.remove('currentUserChatroom');
+      localStorageService.remove('invitations', []);
+      $location.path('/login');
+      socket.disconnect();
+    };
 
     socket.on('chatroom:redirection', function(newChatroom) {
       localStorageService.set('currentUserChatroom', newChatroom);
@@ -44,7 +53,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'socket',
     socket.on('invitation', function(invitation) {
       addInvitation(localStorageService, invitation);
       $scope.invitations = localStorageService.get('invitations');
-    })
+    });
 
     function addInvitation(localStorageService, invitation) {
       var temp = localStorageService.get('invitations');

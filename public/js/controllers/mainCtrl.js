@@ -1,18 +1,14 @@
-angular.module('MainCtrl', []).controller('MainController', ['$scope', '$http', 'socket', 'localStorageService',
-  function($scope, $http, socket, localStorageService) {
+angular.module('MainCtrl', []).controller('MainController', ['$scope', 'socket', 'localStorageService', 'connectedUsersService',
+  function($scope, socket, localStorageService, connectedUsersService) {
     $scope.user = {
       name: localStorageService.get('currentUserName'),
       chatroom: localStorageService.get('currentUserChatroom')
     };
 
     $scope.connectedUsers = [];
-    $http.get('/api/connectedUsers').
-      success(function(data) {
-        $scope.connectedUsers = data.connectedUsers;
-      }).
-      error(function(err) {
-        console.log(err);
-      });
+    connectedUsersService.updateConnectedUsers(function(connectedUsers) {
+      $scope.connectedUsers = connectedUsers;
+    });
 
     socket.on('user:current', function() {
       $scope.user = {
@@ -22,13 +18,9 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$http', 
     });
 
     socket.on('user:connected', function() {
-      $http.get('/api/connectedUsers').
-        success(function(data) {
-          $scope.connectedUsers = data.connectedUsers;
-        }).
-        error(function(err) {
-          console.log(err);
-        });
+      connectedUsersService.updateConnectedUsers(function(connectedUsers) {
+        $scope.connectedUsers = connectedUsers;
+      });
     });
   }
 ]);

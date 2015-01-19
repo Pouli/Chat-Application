@@ -8,5 +8,6 @@ angular.module('chat', [
   'HomeCtrl',
   'ChatCtrl',
   'socket',
+  'connectedUsersService',
   'btford.socket-io'
 ]);
