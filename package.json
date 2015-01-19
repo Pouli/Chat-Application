@@ -4,6 +4,7 @@
   "dependencies" : {
     "express": "latest",
     "socket.io": "latest",
+    "mongoose": "latest",
     "body-parser": "latest",
     "method-override": "latest",
     "morgan": "latest"

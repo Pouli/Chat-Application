@@ -6,6 +6,7 @@
         "animate.css": "latest",
         "angular": "latest",
         "angular-route": "latest",
-        "angular-socket-io": "latest"
+        "angular-socket-io": "latest",
+        "angular-local-storage": "latest"
     }
 }

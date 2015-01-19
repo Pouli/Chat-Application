@@ -4,6 +4,7 @@
 
 var express = require('express');
 var http = require('http');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var morgan = require('morgan');
@@ -16,6 +17,9 @@ var io = require('socket.io').listen(server);
 * Configuration
 */
 
+//Db config
+var db = require('./config/db');
+mongoose.connect(db.url);
 //Port config
 var port = process.env.PORT || 8080;
 //App config
