@@ -1,19 +1,21 @@
-<form name="textForm" ng-submit="sendMessage(textForm.$valid)">
-  <div class="form-group">
-      <label hidden>Text</label>
-      <textarea type="text" name="message" class="form-control" ng-model="message" required></textarea>
+<div class="container">
+  <div class="zone1">
+    <form name="textForm" ng-submit="sendMessage(textForm.$valid)">
+      <div class="form-group">
+          <label hidden>Text</label>
+          <textarea type="text" name="message" class="form-control" ng-model="message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
   </div>
-  <button type="submit" class="btn btn-primary">Send</button>
-</form>
-<div class="container">
-  <h1>Messages</h1>
-  <ul class="chat">
-    <li class="message" ng-repeat="message in messages">
-      {{message.user.name}}: {{message.text}}
-    </li>
-  </ul>
-</div>
-<div class="container">
-  <h1>Quit Chat</h1>
-  <button ng-click="quitChat()">Quit Chat</button>
+  <div class="zone2">
+    <h1>Messages</h1>
+    <ul class="chat">
+      <li class="message" ng-repeat="message in messages">
+        {{message.user.name}}: {{message.text}}
+      </li>
+    </ul>
+  </div>
+  <p>Quit Chat</p>
+  <button class="btn btn-primary" ng-click="quitChat()">Quit Chat</button>
 </div>
