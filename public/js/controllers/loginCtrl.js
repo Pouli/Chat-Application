@@ -1,7 +1,9 @@
 angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'socket', '$location', 'localStorageService',
   function($scope, socket, $location, localStorageService) {
+    //Scope variables
     $scope.pseudo = '';
 
+    //Scope functions
     $scope.login = function(isValid) {
       if(isValid) {
         localStorageService.set('currentUserName', $scope.pseudo);

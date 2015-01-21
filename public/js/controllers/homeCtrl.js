@@ -1,8 +1,10 @@
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'socket', '$location', 'localStorageService',
   function($scope, socket, $location, localStorageService) {
+    //Scope variables
     $scope.selectedUsers = [];
     $scope.invitations = localStorageService.get('invitations');
 
+    //Scope functions
     $scope.selectUser = function(user) {
       if($scope.selectedUsers.length < 4) {
         if($scope.selectedUsers.indexOf(user) === -1) {
@@ -44,6 +46,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'socket',
       socket.disconnect();
     };
 
+    //Socket events
     socket.on('chatroom:redirection', function(newChatroom) {
       localStorageService.set('currentUserChatroom', newChatroom);
       $scope.user.chatroom = newChatroom;
@@ -55,12 +58,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'socket',
       $scope.invitations = localStorageService.get('invitations');
     });
 
+    //Function to add an invitation to the list
     function addInvitation(localStorageService, invitation) {
       var temp = localStorageService.get('invitations');
       temp.push(invitation);
       localStorageService.set('invitations', temp);
     }
-
+    //Function to remove an invitation from the list
     function removeInvitation(localStorageService, invitation) {
       var temp = localStorageService.get('invitations');
       var index = temp.indexOf(invitation);

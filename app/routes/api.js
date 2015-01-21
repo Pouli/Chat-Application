@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var ConnectedUser = require('../models/connectedUser');
 
 module.exports = function(app) {
+  //API route for getting connected users
   app.get('/api/connectedusers', function(req, res) {
     ConnectedUser.find(function(err, users) {
       if(err) {

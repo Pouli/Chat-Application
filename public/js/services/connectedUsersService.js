@@ -1,5 +1,4 @@
 angular.module('connectedUsersService', []).factory('connectedUsersService', function($http) {
-
   return {
     updateConnectedUsers: function(callback) {
       $http.get('/api/connectedusers').
